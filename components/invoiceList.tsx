@@ -12,6 +12,7 @@ const InvoiceList = async () => {
   const data = await fetch(
     "https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblx9ZNNf4whALlrE",
     {
+      cache: "no-store",
       headers: {
         Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
       },

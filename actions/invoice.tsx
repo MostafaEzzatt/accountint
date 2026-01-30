@@ -45,6 +45,7 @@ export async function createInvoice(
     const response = await fetch(
       "https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblx9ZNNf4whALlrE",
       {
+        cache: "no-store",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,6 +59,7 @@ export async function createInvoice(
       return false;
     }
     // const result = await response.json();
+    revalidatePath("/");
     return true;
   } catch {
     // throw error;
@@ -104,6 +106,7 @@ export async function updateInvoice(
     const response = await fetch(
       `https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblx9ZNNf4whALlrE/${recordId}`,
       {
+        cache: "no-store",
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -139,6 +142,7 @@ export async function deleteInvoice(
     const request = await fetch(
       `https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblx9ZNNf4whALlrE/${recordId}`,
       {
+        cache: "no-store",
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
