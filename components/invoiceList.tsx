@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "./ui/table";
 
-const InvoiceList = async () => {
+const InvoiceList = async ({ companys }: { companys: companysInterface }) => {
   const data = await fetch(
     "https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblx9ZNNf4whALlrE",
     {
@@ -58,7 +58,11 @@ const InvoiceList = async () => {
       </TableHeader>
       <TableBody>
         {posts.records.map((record) => (
-          <InvoiceListItem key={record.id} record={record} />
+          <InvoiceListItem
+            key={record.id}
+            record={record}
+            companys={companys}
+          />
         ))}
       </TableBody>
     </Table>

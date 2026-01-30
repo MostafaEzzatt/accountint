@@ -49,7 +49,7 @@ const list_of_fields = {
 // اليوم
 // }
 
-const MainForm = () => {
+const MainForm = ({ companys }: { companys: companysInterface }) => {
   const defaultValues = {
     company_name: "",
     receipt_number: 0,
@@ -89,6 +89,7 @@ const MainForm = () => {
     if (InvoiceState === true && isPendingTransition === false) {
       form.reset();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [InvoiceState, isPendingTransition]);
 
   return (
@@ -146,18 +147,24 @@ const MainForm = () => {
                       {list_of_fields.company_name}
                     </FieldLabel>
                   </div>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => {
-                      field.handleChange(e.target.value);
-                    }}
-                    aria-invalid={isInvalid}
-                    autoComplete="off"
-                    className="text-right"
-                  />
+                  <Select
+                    value={field.state.value as string}
+                    onValueChange={(value) => field.handleChange(value)}
+                  >
+                    <SelectTrigger className="w-45">
+                      <SelectValue placeholder="اسم الشركة" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {companys.records.map((company) => (
+                        <SelectItem
+                          key={company.id}
+                          value={company.fields.Name}
+                        >
+                          {company.fields.Name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
               );

@@ -16,8 +16,15 @@ import {
 } from "./ui/select";
 import { TableCell, TableRow } from "./ui/table";
 
-const InvoiceListItem = ({ record }: { record: fullRecord }) => {
+const InvoiceListItem = ({
+  record,
+  companys,
+}: {
+  record: fullRecord<record>;
+  companys: companysInterface;
+}) => {
   const [updateField, setUpdateField] = useState("");
+  const [companyName, setCompanyName] = useState(record.fields.company_name);
   const [currentValue, setCurrentValue] = useState<string | number | null>(
     null,
   );
@@ -360,12 +367,21 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               }}
             >
               {updateField == "company_name" ? (
-                <Input
-                  autoFocus
-                  type="text"
-                  value={currentValue || ""}
-                  onChange={(e) => setCurrentValue(e.target.value)}
-                />
+                <Select
+                  value={companyName || ""}
+                  onValueChange={(value) => setCompanyName(value)}
+                >
+                  <SelectTrigger className="w-45">
+                    <SelectValue placeholder="اسم الشركة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {companys.records.map((company) => (
+                      <SelectItem key={company.id} value={company.fields.Name}>
+                        {company.fields.Name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               ) : (
                 record.fields.company_name
               )}

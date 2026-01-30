@@ -3,6 +3,33 @@
 
 import { revalidatePath } from "next/cache";
 
+export async function getCompanys() {
+  try {
+    const data = await fetch(
+      "https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblCx7i95ZirX0lni",
+      {
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
+        },
+      },
+    );
+
+    let companys = (await data.json()) as companysInterface;
+    // sort companys by createdTime descending
+    companys = {
+      records: companys.records.sort((a, b) => {
+        return (
+          new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
+        );
+      }),
+    };
+    return companys;
+  } catch {
+    return { records: [] };
+  }
+}
+
 export async function createCompany(prevState: any, data: { Name: string }) {
   // Simulate a delay for async operation
   try {
