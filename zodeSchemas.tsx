@@ -37,3 +37,8 @@ export const formSchema = z.object({
 export const addCompanySchema = z.object({
   Name: z.string().min(2, "Name must be at least 2 characters"),
 });
+
+export const addProductSchema = z.object({
+  Name: z.string().min(2, "Name must be at least 2 characters"),
+  company_name: z.string().min(2, "Company name must be at least 2 characters"),
+});

@@ -23,6 +23,17 @@ interface responseInterface {
 }
 
 type companysResponseType = { Name: string };
+
 interface companysInterface {
   records: fullRecord<companysResponseType>[];
+}
+
+type productsResponseType = {
+  Name: string;
+  company_name: string;
+  company_id: string;
+};
+
+interface productsInterface {
+  records: fullRecord<productsResponseType>[];
 }
