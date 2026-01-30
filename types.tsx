@@ -12,11 +12,17 @@ type record = {
   Day: string;
 };
 
-type fullRecord = {
+type fullRecord<T> = {
   createdTime: string;
   id: string;
-  fields: record;
+  fields: T;
 };
+
 interface responseInterface {
-  records: fullRecord[];
+  records: fullRecord<record>[];
+}
+
+type companysResponseType = { Name: string };
+interface companysInterface {
+  records: fullRecord<companysResponseType>[];
 }
