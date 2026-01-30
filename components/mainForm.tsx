@@ -7,7 +7,7 @@ import {
 } from "@/utils/localstorage_date";
 import { formSchema } from "@/zodeSchemas";
 import { useForm } from "@tanstack/react-form";
-import { useActionState, useTransition } from "react";
+import { useActionState, useEffect, useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
 import { Field, FieldError, FieldLabel } from "./ui/field";
@@ -85,9 +85,12 @@ const MainForm = () => {
     },
   });
 
-  if (InvoiceState === true && isPendingTransition === false) {
-    form.reset();
-  }
+  useEffect(() => {
+    if (InvoiceState === true && isPendingTransition === false) {
+      form.reset();
+    }
+  }, [InvoiceState, isPendingTransition]);
+
   return (
     <form
       onSubmit={(e) => {

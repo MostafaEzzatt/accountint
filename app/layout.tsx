@@ -1,3 +1,4 @@
+import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white min-h-screen`}
         cz-shortcut-listen="true"
       >
+        <Navbar />
         <div className="container mx-auto">{children}</div>
         <Toaster />
       </body>

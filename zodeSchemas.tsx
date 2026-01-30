@@ -33,3 +33,7 @@ export const formSchema = z.object({
     message: "Invalid date format.",
   }),
 });
+
+export const addCompanySchema = z.object({
+  Name: z.string().min(2, "Name must be at least 2 characters"),
+});

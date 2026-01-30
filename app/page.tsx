@@ -1,12 +1,11 @@
 import InvoiceList from "@/components/invoiceList";
 import MainForm from "@/components/mainForm";
+import { TypographyH1 } from "@/components/ui/TypographyH1";
 
 const Home = () => {
   return (
     <main className="pt-8">
-      <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-        تحميل الفواتير
-      </h1>
+      <TypographyH1 txt="ترصيد" />
 
       <MainForm />
 

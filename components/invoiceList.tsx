@@ -19,7 +19,13 @@ const InvoiceList = async () => {
     },
   );
 
-  const posts = (await data.json()) as responseInterface;
+  let posts = (await data.json()) as responseInterface;
+  // sort by receipt_number descending
+  posts = {
+    records: posts.records.sort((a, b) => {
+      return b.fields.receipt_number - a.fields.receipt_number;
+    }),
+  };
 
   return (
     <Table className="mt-16">
