@@ -28,24 +28,26 @@ const InvoiceList = async () => {
       )}
       <TableHeader>
         <TableRow>
-          <TableHead className="text-white text-right">#</TableHead>
-          <TableHead className="text-white text-right">اليوم</TableHead>
-          <TableHead className="text-white text-right">التاريخ</TableHead>
-          <TableHead className="text-white text-right">الكمية</TableHead>
-          <TableHead className="text-white text-right">وحدة الصرف</TableHead>
-          <TableHead className="text-white text-right">سبب الرفض</TableHead>
-          <TableHead className="text-white text-right">
+          <TableHead className="text-white text-center">
+            مسح | تعديل | حفظ
+          </TableHead>
+          <TableHead className="text-white text-center">اليوم</TableHead>
+          <TableHead className="text-white text-center">التاريخ</TableHead>
+          <TableHead className="text-white text-center">الكمية</TableHead>
+          <TableHead className="text-white text-center">وحدة الصرف</TableHead>
+          <TableHead className="text-white text-center">سبب الرفض</TableHead>
+          <TableHead className="text-white text-center">
             راى فنى و جودة
           </TableHead>
-          <TableHead className="text-white text-right">الصنف</TableHead>
-          <TableHead className="text-white text-right">
+          <TableHead className="text-white text-center">الصنف</TableHead>
+          <TableHead className="text-white text-center">
             رقم امر التوريد
           </TableHead>
-          <TableHead className="text-white text-right">نوع الازن</TableHead>
-          <TableHead className="text-white text-right">
+          <TableHead className="text-white text-center">نوع الازن</TableHead>
+          <TableHead className="text-white text-center">
             رقم ازن الفحص و الاستلام
           </TableHead>
-          <TableHead className="text-white text-right">اسم الشركة</TableHead>
+          <TableHead className="text-white text-center">اسم الشركة</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

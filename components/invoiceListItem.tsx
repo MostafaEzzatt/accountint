@@ -75,7 +75,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
   return (
     <>
       {pauseComp ? (
-        <TableRow key={record.id}>
+        <TableRow>
           <TableCell
             colSpan={12}
             className="text-center text-1xl font-black py-3"
@@ -87,7 +87,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
         </TableRow>
       ) : (
         <TableRow key={record.id}>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <div className="flex justify-around items-center gap-1">
               <Button
                 className="cursor-pointer"
@@ -119,7 +119,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               </Button>
             </div>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("day");
@@ -138,7 +138,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("date");
@@ -157,7 +157,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("quantity");
@@ -176,7 +176,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("dispensing_unit");
@@ -207,7 +207,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               className="w-full min-h-4"
               onClick={() => {
@@ -227,7 +227,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("technical_opinion");
@@ -260,7 +260,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("item");
@@ -279,7 +279,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("supply_order_number");
@@ -293,12 +293,14 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
                   value={currentValue || 0}
                   onChange={(e) => setCurrentValue(e.target.value)}
                 />
+              ) : record.fields.supply_order_number == 0 ? (
+                "ــــــ"
               ) : (
                 record.fields.supply_order_number
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("receipt_type");
@@ -329,7 +331,7 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("receipt_number");
@@ -343,12 +345,14 @@ const InvoiceListItem = ({ record }: { record: fullRecord }) => {
                   value={currentValue || 0}
                   onChange={(e) => setCurrentValue(e.target.value)}
                 />
+              ) : record.fields.receipt_number == 0 ? (
+                "ــــــ"
               ) : (
                 record.fields.receipt_number
               )}
             </p>
           </TableCell>
-          <TableCell className="text-right">
+          <TableCell className="text-center">
             <p
               onClick={() => {
                 setUpdateField("company_name");

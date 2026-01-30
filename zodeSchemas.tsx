@@ -17,7 +17,7 @@ export const formSchema = z.object({
   ]),
   supply_order_number: z
     .number()
-    .min(1, "Supply order number must be a positive integer."),
+    .min(0, "Supply order number must be a positive integer or zero.."),
   item: z
     .string()
     .min(3, "Item must be at least 3 characters.")

@@ -1,6 +1,10 @@
 /* eslint-disable react/no-children-prop */
 "use client";
 import { createInvoice } from "@/actions/invoice";
+import {
+  getInitialDateFromLocal,
+  saveDateToLocal,
+} from "@/utils/localstorage_date";
 import { formSchema } from "@/zodeSchemas";
 import { useForm } from "@tanstack/react-form";
 import { useActionState, useTransition } from "react";
@@ -56,7 +60,7 @@ const MainForm = () => {
     rejection_reason: "",
     dispensing_unit: "عدد",
     quantity: 0,
-    Date: new Date().toLocaleDateString(),
+    Date: getInitialDateFromLocal(),
   };
 
   const [InvoiceState, submitInvoice, InvoicePending] = useActionState(
@@ -71,13 +75,13 @@ const MainForm = () => {
       onSubmit: formSchema,
     },
     onSubmit: async ({ value }) => {
-      toast.success(`تم تحميل الفاتورة لشركة ${value.company_name} بنجاح`);
-
       // Submit the form data using the server action
       // how to get the submit function value
       startTransition(() => {
         submitInvoice(value);
       });
+      saveDateToLocal(value.Date);
+      toast.success(`تم تحميل الفاتورة لشركة ${value.company_name} بنجاح`);
     },
   });
 
