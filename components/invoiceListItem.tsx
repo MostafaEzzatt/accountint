@@ -369,7 +369,10 @@ const InvoiceListItem = ({
               {updateField == "company_name" ? (
                 <Select
                   value={companyName || ""}
-                  onValueChange={(value) => setCompanyName(value)}
+                  onValueChange={(value) => {
+                    setCompanyName(value);
+                    setCurrentValue(value);
+                  }}
                 >
                   <SelectTrigger className="w-45">
                     <SelectValue placeholder="اسم الشركة" />
