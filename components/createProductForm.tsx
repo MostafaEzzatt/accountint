@@ -142,6 +142,7 @@ const CreateProductForm = ({ companys }: { companys: companysInterface }) => {
       >
         إضافة المنتجات
       </Button>
+      <div className="clear-both"></div>
     </form>
   );
 };

@@ -94,3 +94,28 @@ export async function createProduct(
     return { success: false };
   }
 }
+
+export async function deleteProduct(prevState: any, productID: string) {
+  if (!productID) return false;
+
+  try {
+    const request = await fetch(
+      `https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblS6W5PpafeX1Pln/${productID}`,
+      {
+        cache: "no-store",
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
+        },
+      },
+    );
+
+    const responseState = request.ok;
+
+    if (!responseState) return false;
+
+    return true;
+  } catch {
+    return false;
+  }
+}
