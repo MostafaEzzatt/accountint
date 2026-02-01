@@ -58,8 +58,6 @@ export async function getProductsByCompanyName(
         );
       }),
     };
-
-    console.log(product);
     return product;
   } catch {
     return { records: [] };

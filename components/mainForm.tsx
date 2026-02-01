@@ -93,13 +93,13 @@ const MainForm = ({ companys }: { companys: companysInterface }) => {
         submitInvoice(value);
       });
       saveDateToLocal(value.Date);
-      toast.success(`تم تحميل الفاتورة لشركة ${value.company_name} بنجاح`);
     },
   });
 
   useEffect(() => {
     if (InvoiceState === true && isPendingTransition === false) {
       form.reset();
+      toast.success(`تم تحميل الفاتورة بنجاح`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [InvoiceState, isPendingTransition]);
@@ -161,13 +161,20 @@ const MainForm = ({ companys }: { companys: companysInterface }) => {
                   </div>
                   <Select
                     value={field.state.value as string}
+                    disabled={companys.records.length < 1}
                     onValueChange={(value) => {
                       field.handleChange(value);
                       updateItemsList(value);
                     }}
                   >
                     <SelectTrigger className="w-45">
-                      <SelectValue placeholder="اسم الشركة" />
+                      <SelectValue
+                        placeholder={
+                          companys.records.length < 1
+                            ? "لا يوجد شركات"
+                            : "اسم الشركة"
+                        }
+                      />
                     </SelectTrigger>
                     <SelectContent>
                       {companys.records.map((company) => (
@@ -499,6 +506,7 @@ const MainForm = ({ companys }: { companys: companysInterface }) => {
         <Button type="button" onClick={() => form.reset()}>
           مسح
         </Button>
+
         <Button
           type="submit"
           className="bg-white text-black disabled:cursor-not-allowed"

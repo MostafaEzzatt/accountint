@@ -57,7 +57,11 @@ const CompanyListItem = ({
       </TableCell>
       <TableCell className="text-center" onClick={() => setEditing(true)}>
         {editing ? (
-          <Input value={name} onChange={(e) => setName(e.target.value)} />
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            autoFocus
+          />
         ) : (
           <TypographyP txt={record.fields.Name} />
         )}

@@ -77,23 +77,42 @@ const CreateProductForm = ({ companys }: { companys: companysInterface }) => {
                     {list_of_fields.company_name}
                   </FieldLabel>
                 </div>
-                <Select
-                  value={field.state.value as string}
-                  onValueChange={(value) => {
-                    field.handleChange(value);
-                  }}
-                >
-                  <SelectTrigger className="w-45">
-                    <SelectValue placeholder="اسم الشركة" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {companys.records.map((company) => (
-                      <SelectItem key={company.id} value={company.fields.Name}>
-                        {company.fields.Name}
+                {companys.records.length >= 1 ? (
+                  <Select
+                    value={field.state.value as string}
+                    onValueChange={(value) => {
+                      field.handleChange(value);
+                    }}
+                  >
+                    <SelectTrigger className="w-45">
+                      <SelectValue placeholder="اسم الشركة" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {companys.records.map((company) => (
+                        <SelectItem
+                          key={company.id}
+                          value={company.fields.Name}
+                        >
+                          {company.fields.Name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                ) : (
+                  <Select disabled>
+                    <SelectTrigger className="w-45">
+                      <SelectValue
+                        placeholder="لا يوجد شركات الان"
+                        className="mr-auto"
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="لا" className="text-right">
+                        لا يوجد شركات الان
                       </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                    </SelectContent>
+                  </Select>
+                )}
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
               </Field>
             );

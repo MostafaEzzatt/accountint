@@ -37,7 +37,7 @@ const ProductsList = ({ products }: { products: productsInterface }) => {
   useEffect(() => {
     if (deleteProductState && !pending) {
       toast.success("Product deleted succesfuly");
-    } else if (!deleteProductState && !pending) {
+    } else if (deleteProductState === false && !pending) {
       toast.error("Error while deleting the product ");
     }
   }, [deleteProductState, pending]);

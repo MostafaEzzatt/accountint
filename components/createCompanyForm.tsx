@@ -63,6 +63,7 @@ const CreateCompanyForm = () => {
                 </div>
                 <Input
                   id={field.name}
+                  autoFocus
                   name={field.name}
                   value={field.state.value}
                   onBlur={field.handleBlur}
