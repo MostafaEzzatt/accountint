@@ -229,8 +229,10 @@ const InvoiceListItem = ({
                   value={currentValue || ""}
                   onChange={(e) => setCurrentValue(e.target.value)}
                 />
-              ) : (
+              ) : record.fields.rejection_reason ? (
                 record.fields.rejection_reason
+              ) : (
+                "ــــــ"
               )}
             </p>
           </TableCell>
