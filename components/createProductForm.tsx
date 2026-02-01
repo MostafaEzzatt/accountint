@@ -33,7 +33,6 @@ const CreateProductForm = ({ companys }: { companys: companysInterface }) => {
       onSubmit: addProductSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log({ value });
       const findCompany = companys.records.find(
         (r) => r.fields.Name == value.company_name,
       )?.id;

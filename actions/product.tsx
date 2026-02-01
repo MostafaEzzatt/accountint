@@ -30,6 +30,41 @@ export async function getProducts() {
     return { records: [] };
   }
 }
+export async function getProductsByCompanyName(
+  prevState: any,
+  company_name: string,
+) {
+  if (!company_name) return { records: [] };
+  try {
+    const filterFormula = encodeURIComponent(
+      `{company_name}="${company_name}"`,
+    );
+    const data = await fetch(
+      `https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblS6W5PpafeX1Pln?filterByFormula=${filterFormula}`,
+      {
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
+        },
+      },
+    );
+
+    let product = (await data.json()) as productsInterface;
+    // sort product by createdTime descending
+    product = {
+      records: product.records.sort((a, b) => {
+        return (
+          new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
+        );
+      }),
+    };
+
+    console.log(product);
+    return product;
+  } catch {
+    return { records: [] };
+  }
+}
 
 export async function createProduct(
   prevState: any,

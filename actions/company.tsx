@@ -38,7 +38,7 @@ export async function createCompany(prevState: any, data: { Name: string }) {
     }
 
     const objectData = JSON.stringify({ records: [{ fields: data }] });
-    console.log(objectData);
+
     const request = await fetch(
       "https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblCx7i95ZirX0lni",
       {

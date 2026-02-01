@@ -1,6 +1,7 @@
 /* eslint-disable react/no-children-prop */
 "use client";
 import { createInvoice } from "@/actions/invoice";
+import { getProductsByCompanyName } from "@/actions/product";
 import {
   getInitialDateFromLocal,
   saveDateToLocal,
@@ -67,7 +68,18 @@ const MainForm = ({ companys }: { companys: companysInterface }) => {
     createInvoice,
     null,
   );
+  const [getItemsState, submitGetItems, getItemsPending] = useActionState(
+    getProductsByCompanyName,
+    null,
+  );
+
   const [isPendingTransition, startTransition] = useTransition();
+
+  function updateItemsList(company_name: string) {
+    startTransition(() => {
+      submitGetItems(company_name);
+    });
+  }
 
   const form = useForm({
     defaultValues: defaultValues,
@@ -149,7 +161,10 @@ const MainForm = ({ companys }: { companys: companysInterface }) => {
                   </div>
                   <Select
                     value={field.state.value as string}
-                    onValueChange={(value) => field.handleChange(value)}
+                    onValueChange={(value) => {
+                      field.handleChange(value);
+                      updateItemsList(value);
+                    }}
                   >
                     <SelectTrigger className="w-45">
                       <SelectValue placeholder="اسم الشركة" />
@@ -298,18 +313,42 @@ const MainForm = ({ companys }: { companys: companysInterface }) => {
                       {list_of_fields.item}
                     </FieldLabel>
                   </div>
-                  <Input
-                    id={field.name}
-                    name={field.name}
-                    value={field.state.value}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => {
-                      field.handleChange(e.target.value);
-                    }}
-                    aria-invalid={isInvalid}
-                    autoComplete="off"
-                    className="text-right"
-                  />
+
+                  <Select
+                    disabled={
+                      !getItemsState || getItemsState.records.length < 1
+                    }
+                    value={
+                      field.state
+                        .value as typeof formSchema.shape.receipt_type._output
+                    }
+                    onValueChange={(value) => field.handleChange(value)}
+                  >
+                    <SelectTrigger className="w-45">
+                      <SelectValue
+                        placeholder={
+                          getItemsState && getItemsState.records.length >= 1
+                            ? "أختر النتج"
+                            : "لا يوجد و منتجات حاليا"
+                        }
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {getItemsState && getItemsState.records.length >= 1 ? (
+                        getItemsState.records.map((option) => (
+                          <SelectItem
+                            key={option.id}
+                            value={option.fields.Name}
+                          >
+                            {option.fields.Name}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <SelectItem value="لا">لا يوجد منتجات حاليا</SelectItem>
+                      )}
+                    </SelectContent>
+                  </Select>
+
                   {isInvalid && <FieldError errors={field.state.meta.errors} />}
                 </Field>
               );
