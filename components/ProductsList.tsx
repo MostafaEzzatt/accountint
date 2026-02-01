@@ -28,11 +28,11 @@ const ProductsList = ({ products }: { products: productsInterface }) => {
       submitDeleteProduct(recordId);
     });
   }
-  function handleUpdateRecordName(data: {
-    recordId: string;
-    Name: string;
-    company_name: string;
-  }) {}
+  // function handleUpdateRecordName(data: {
+  //   recordId: string;
+  //   Name: string;
+  //   company_name: string;
+  // }) {}
 
   useEffect(() => {
     if (deleteProductState && !pending) {
@@ -63,7 +63,7 @@ const ProductsList = ({ products }: { products: productsInterface }) => {
             record={record}
             editingRecordID={editingRecordID}
             handleDeleteRecord={handleDeleteRecord}
-            handleUpdateRecordName={handleUpdateRecordName}
+            // handleUpdateRecordName={handleUpdateRecordName}
             pending={pending}
           />
         ))}

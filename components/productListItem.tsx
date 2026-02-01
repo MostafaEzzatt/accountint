@@ -9,17 +9,17 @@ const ProductListItem = ({
   record,
   editingRecordID,
   handleDeleteRecord,
-  handleUpdateRecordName,
+  // handleUpdateRecordName,
   pending,
 }: {
   record: fullRecord<productsResponseType>;
   editingRecordID: string;
   handleDeleteRecord: (recordId: string) => void;
-  handleUpdateRecordName: (data: {
-    recordId: string;
-    Name: string;
-    company_name: string;
-  }) => void;
+  // handleUpdateRecordName: (data: {
+  //   recordId: string;
+  //   Name: string;
+  //   company_name: string;
+  // }) => void;
   pending: boolean;
 }) => {
   const [editing, setEditing] = useState(false);
@@ -38,7 +38,7 @@ const ProductListItem = ({
     <TableRow key={record.id}>
       <TableCell className="text-center">
         <div className="flex justify-around items-center gap-1">
-          <Button
+          {/* <Button
             className="cursor-pointer"
             variant="ghost"
             size="sm"
@@ -49,7 +49,8 @@ const ProductListItem = ({
             disabled={pending}
           >
             <PencilLine />
-          </Button>
+          </Button> */}
+
           <Button
             className="cursor-pointer"
             variant="ghost"
@@ -62,7 +63,8 @@ const ProductListItem = ({
         </div>
       </TableCell>
 
-      <TableCell className="text-center" onClick={() => setEditing(true)}>
+      {/* <TableCell className="text-center" onClick={() => setEditing(true)}> */}
+      <TableCell className="text-center">
         {editing ? (
           <Input value={name} onChange={(e) => setName(e.target.value)} />
         ) : (
@@ -70,7 +72,7 @@ const ProductListItem = ({
         )}
       </TableCell>
 
-      <TableCell className="text-center" onClick={() => setEditing(true)}>
+      <TableCell className="text-center">
         {editing ? (
           <Input
             value={companyName}

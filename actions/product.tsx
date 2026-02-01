@@ -53,7 +53,9 @@ export async function createProduct(
     const tens = splitIntoTens(data.Name.split("\n"));
 
     for (let i = 0; i < tens.length; i++) {
-      const element = tens[i];
+      let element = tens[i];
+
+      element = element.filter((i) => i != "");
 
       const fields = element.map((productName) => {
         return {
@@ -114,6 +116,7 @@ export async function deleteProduct(prevState: any, productID: string) {
 
     if (!responseState) return false;
 
+    revalidatePath("/products");
     return true;
   } catch {
     return false;
