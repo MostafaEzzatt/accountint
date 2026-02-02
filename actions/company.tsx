@@ -133,3 +133,50 @@ export async function updateCompany(
     return { success: false };
   }
 }
+
+export async function fetchAllAirtableRecords(prevStatus: any) {
+  let allRecords: Array<record> = [];
+  let offset: null | string = null;
+  const baseUrl = `https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblx9ZNNf4whALlrE/`;
+
+  try {
+    do {
+      // Build URL with offset if it exists
+      const url: string = offset ? `${baseUrl}?offset=${offset}` : baseUrl;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Airtable Error: ${JSON.stringify(errorData)}`);
+      }
+
+      const data = (await response.json()) as responseInterface & {
+        offset?: string;
+      };
+
+      // Extract the fields and add to our master list
+      const pageRecords = data.records.map((record) => record.fields);
+      allRecords = allRecords.concat(pageRecords);
+
+      // Get the next offset
+      offset = data.offset || null;
+
+      // Wait 200ms to stay within 5 requests per second limit
+      if (offset) {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+    } while (offset);
+
+    return allRecords;
+    // convertToCSV(allRecords);
+  } catch {
+    console.error("Fetch failed: Happend While Trying To Request Data");
+  }
+}
