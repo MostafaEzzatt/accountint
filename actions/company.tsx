@@ -175,7 +175,6 @@ export async function fetchAllAirtableRecords(prevStatus: any) {
     } while (offset);
 
     return allRecords;
-    // convertToCSV(allRecords);
   } catch {
     console.error("Fetch failed: Happend While Trying To Request Data");
   }

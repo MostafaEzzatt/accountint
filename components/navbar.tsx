@@ -9,7 +9,7 @@ const Navbar = () => {
     { title: "الترصيد", href: "/" },
   ];
   return (
-    <div className="w-full py-3 mb-4 border-b border-dashed border-gray-700 flex justify-between items-center">
+    <div className="w-full py-3 mb-4 border-b border-dashed border-gray-700 flex justify-between items-center px-8">
       <DownloadButtons />
       <ul className="flex justify-center items-center font-medium">
         {navList.map((item) => (
