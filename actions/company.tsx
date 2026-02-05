@@ -73,7 +73,7 @@ export async function deleteCompany(prevState: any, recordId: string) {
   const deleteProducts = await deleteAllProductsByCompanyID(recordId);
 
   if (!deleteProducts) {
-    return false;
+    return { success: false };
   }
 
   try {
