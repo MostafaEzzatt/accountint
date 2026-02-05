@@ -269,25 +269,7 @@ const InvoiceListItem = ({
               )}
             </p>
           </TableCell>
-          <TableCell className="text-center">
-            <p
-              onClick={() => {
-                setUpdateField("item");
-                setCurrentValue(record.fields.item || "");
-              }}
-            >
-              {updateField == "item" ? (
-                <Input
-                  autoFocus
-                  type="text"
-                  value={currentValue || ""}
-                  onChange={(e) => setCurrentValue(e.target.value)}
-                />
-              ) : (
-                record.fields.item
-              )}
-            </p>
-          </TableCell>
+
           <TableCell className="text-center">
             <p
               onClick={() => {
@@ -361,6 +343,26 @@ const InvoiceListItem = ({
               )}
             </p>
           </TableCell>
+          <TableCell className="text-center">
+            <p
+              onClick={() => {
+                setUpdateField("item");
+                setCurrentValue(record.fields.item || "");
+              }}
+            >
+              {updateField == "item" ? (
+                <Input
+                  autoFocus
+                  type="text"
+                  value={currentValue || ""}
+                  onChange={(e) => setCurrentValue(e.target.value)}
+                />
+              ) : (
+                record.fields.item
+              )}
+            </p>
+          </TableCell>
+
           <TableCell className="text-center">
             <p
               onClick={() => {

@@ -45,7 +45,6 @@ const InvoiceList = async ({ companys }: { companys: companysInterface }) => {
           <TableHead className="text-white text-center">
             راى فنى و جودة
           </TableHead>
-          <TableHead className="text-white text-center">الصنف</TableHead>
           <TableHead className="text-white text-center">
             رقم امر التوريد
           </TableHead>
@@ -53,6 +52,7 @@ const InvoiceList = async ({ companys }: { companys: companysInterface }) => {
           <TableHead className="text-white text-center">
             رقم ازن الفحص و الاستلام
           </TableHead>
+          <TableHead className="text-white text-center">الصنف</TableHead>
           <TableHead className="text-white text-center">اسم الشركة</TableHead>
         </TableRow>
       </TableHeader>
