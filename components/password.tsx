@@ -19,6 +19,13 @@ const Password = ({ children }: { children: React.ReactNode }) => {
     }
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      // Execute your function here
+      handleClick();
+    }
+  };
+
   return !unlock ? (
     <div className="absolute inset-0 bg-black flex justify-center items-center">
       <div className="w-2/3">
@@ -30,6 +37,8 @@ const Password = ({ children }: { children: React.ReactNode }) => {
           value={password}
           onChange={(i) => setPassword(i.target.value)}
           className="text-center"
+          autoFocus
+          onKeyDown={handleKeyDown}
         />
         {error ? (
           <span className="text-center w-full block mt-2 text-red-400">
