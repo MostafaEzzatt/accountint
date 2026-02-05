@@ -26,7 +26,7 @@ const Password = ({ children }: { children: React.ReactNode }) => {
           Enter Your Passowrd To Be Able To Use This Application
         </Label>
         <Input
-          type="text"
+          type="password"
           value={password}
           onChange={(i) => setPassword(i.target.value)}
           className="text-center"
