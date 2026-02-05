@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 type record = {
   company_name: string;
   receipt_number: number;
@@ -26,6 +27,7 @@ type companysResponseType = { Name: string };
 
 interface companysInterface {
   records: fullRecord<companysResponseType>[];
+  offset?: string;
 }
 
 type productsResponseType = {
@@ -36,4 +38,5 @@ type productsResponseType = {
 
 interface productsInterface {
   records: fullRecord<productsResponseType>[];
+  offset?: string;
 }

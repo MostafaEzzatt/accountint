@@ -1,4 +1,5 @@
 import Navbar from "@/components/navbar";
+import Password from "@/components/password";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -27,11 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ colorScheme: "dark" }}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white min-h-screen relative`}
         cz-shortcut-listen="true"
       >
         <Navbar />
-        <div className="container mx-auto">{children}</div>
+        <div className="container mx-auto">
+          <Password>{children}</Password>
+        </div>
         <Toaster dir="rtl" />
       </body>
     </html>

@@ -7,12 +7,14 @@ import { TypographyP } from "./ui/TypographyP";
 
 const CompanyListItem = ({
   record,
+  idx,
   editingRecordID,
   handleDeleteRecord,
   handleUpdateRecordName,
   pending,
 }: {
   record: fullRecord<companysResponseType>;
+  idx: number;
   editingRecordID: string;
   handleDeleteRecord: (recordId: string) => void;
   handleUpdateRecordName: (data: { recordId: string; Name: string }) => void;
@@ -65,6 +67,9 @@ const CompanyListItem = ({
         ) : (
           <TypographyP txt={record.fields.Name} />
         )}
+      </TableCell>
+      <TableCell className="text-center" onClick={() => setEditing(true)}>
+        <TypographyP txt={`${idx}`} />
       </TableCell>
     </TableRow>
   );

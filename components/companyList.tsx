@@ -70,13 +70,15 @@ const CompanyList = ({ companys }: { companys: companysInterface }) => {
             مسح | تعديل | حفظ
           </TableHead>
           <TableHead className="text-white text-center">اسم الشركة</TableHead>
+          <TableHead className="text-white text-center">#</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {companys.records.map((record) => (
+        {companys.records.map((record, idx) => (
           <CompanyListItem
             key={record.id}
             record={record}
+            idx={idx + 1}
             editingRecordID={editingRecordID}
             handleDeleteRecord={handleDeleteRecord}
             handleUpdateRecordName={handleUpdateRecordName}

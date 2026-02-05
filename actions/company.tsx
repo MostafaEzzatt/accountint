@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { deleteAllProductsByCompanyID } from "./product";
 
 export async function getCompanys() {
   try {
@@ -23,6 +25,8 @@ export async function getCompanys() {
           new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
         );
       }),
+
+      offset: companys.offset || "",
     };
     return companys;
   } catch {
@@ -66,6 +70,12 @@ export async function createCompany(prevState: any, data: { Name: string }) {
 }
 
 export async function deleteCompany(prevState: any, recordId: string) {
+  const deleteProducts = await deleteAllProductsByCompanyID(recordId);
+
+  if (!deleteProducts) {
+    return false;
+  }
+
   try {
     if (!recordId) {
       return { success: false };

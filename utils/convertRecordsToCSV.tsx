@@ -78,7 +78,6 @@ export function convertToCSV(objArray: Array<record>) {
       escape_CSV_value(row["Day"] == "الجمعة" ? row["quantity"] : ""),
     );
     values.push(escape_CSV_value(row["Day"] == "السبت" ? row["quantity"] : ""));
-    console.log(values);
 
     csvRows.push(values.join(","));
   }

@@ -1,4 +1,4 @@
-import { LucideBotMessageSquare, PencilLine, Trash2 } from "lucide-react";
+import { LucideBotMessageSquare, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -7,12 +7,14 @@ import { TypographyP } from "./ui/TypographyP";
 
 const ProductListItem = ({
   record,
+  idx,
   editingRecordID,
   handleDeleteRecord,
   // handleUpdateRecordName,
   pending,
 }: {
   record: fullRecord<productsResponseType>;
+  idx: number;
   editingRecordID: string;
   handleDeleteRecord: (recordId: string) => void;
   // handleUpdateRecordName: (data: {
@@ -81,6 +83,9 @@ const ProductListItem = ({
         ) : (
           <TypographyP txt={record.fields.company_name} />
         )}
+      </TableCell>
+      <TableCell className="text-center">
+        <TypographyP txt={`${idx}`} />
       </TableCell>
     </TableRow>
   );

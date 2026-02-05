@@ -3,33 +3,48 @@
 
 import { splitIntoTens } from "@/utils/splitArrayToTens";
 import { revalidatePath } from "next/cache";
+const baseURL =
+  "https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblS6W5PpafeX1Pln";
 
 export async function getProducts() {
   try {
-    const data = await fetch(
-      "https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblS6W5PpafeX1Pln",
-      {
+    let offset = "";
+    const products: productsInterface = { records: [], offset: "" };
+    do {
+      const URL = offset ? `${baseURL}/?offset=${offset}` : baseURL;
+      const data = await fetch(URL, {
         cache: "no-store",
         headers: {
           Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
         },
-      },
-    );
+      });
 
-    let product = (await data.json()) as productsInterface;
+      let product = (await data.json()) as productsInterface;
+      offset = product.offset || "";
+      product = {
+        records: product.records.sort((a, b) => {
+          return (
+            new Date(b.createdTime).getTime() -
+            new Date(a.createdTime).getTime()
+          );
+        }),
+        offset: product.offset || "",
+      };
+
+      products.records = [...products.records, ...product.records];
+      if (offset) {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+    } while (offset);
+
     // sort product by createdTime descending
-    product = {
-      records: product.records.sort((a, b) => {
-        return (
-          new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
-        );
-      }),
-    };
-    return product;
+
+    return products;
   } catch {
     return { records: [] };
   }
 }
+
 export async function getProductsByCompanyName(
   prevState: any,
   company_name: string,
@@ -57,6 +72,7 @@ export async function getProductsByCompanyName(
           new Date(b.createdTime).getTime() - new Date(a.createdTime).getTime()
         );
       }),
+      offset: product.offset,
     };
     return product;
   } catch {
@@ -150,6 +166,94 @@ export async function deleteProduct(prevState: any, productID: string) {
     if (!responseState) return false;
 
     revalidatePath("/products");
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function getProductsByCompanyID(company_id: string) {
+  try {
+    let offset = "";
+    const products: productsInterface = { records: [], offset: "" };
+    const filterFormula = `{company_id}="${company_id}"`;
+    const encodedFormula = encodeURIComponent(filterFormula);
+
+    do {
+      const URL = offset
+        ? `${baseURL}/?offset=${offset}&filterByFormula=${encodedFormula}`
+        : `${baseURL}?filterByFormula=${encodedFormula}`;
+      console.log(URL);
+
+      const data = await fetch(URL, {
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
+        },
+      });
+
+      let product = (await data.json()) as productsInterface;
+      offset = product.offset || "";
+      product = {
+        records: product.records.sort((a, b) => {
+          return (
+            new Date(b.createdTime).getTime() -
+            new Date(a.createdTime).getTime()
+          );
+        }),
+        offset: product.offset || "",
+      };
+
+      products.records = [...products.records, ...product.records];
+      if (offset) {
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+    } while (offset);
+    return products;
+  } catch {
+    return { records: [] };
+  }
+}
+
+export async function deleteAllProductsByCompanyID(companyID: string) {
+  try {
+    const products = await getProductsByCompanyID(companyID);
+    const productsIDS: Array<string> = [];
+    const BATCH_SIZE = 10;
+    if (products.records.length >= 1) {
+      for (let i = 0; i < products.records.length; i += BATCH_SIZE) {
+        const batch = products.records
+          .slice(i, i + BATCH_SIZE)
+          .map((i) => `records[]=${i.id}`)
+          .join("&");
+        productsIDS.push(batch);
+      }
+      // productsIDS = products.records.map((i) => `records[]=${i.id}`).join("&");
+    } else {
+      return true;
+    }
+
+    for (let p = 0; p < productsIDS.length; p++) {
+      const item = productsIDS[p];
+
+      const request = await fetch(
+        `https://api.airtable.com/v0/app7Ujb6Iegx1EKAS/tblS6W5PpafeX1Pln/?${item}`,
+        {
+          cache: "no-store",
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${process.env.AIR_TABLE_TOKKEN}`,
+          },
+        },
+      );
+
+      const responseState = request.ok;
+
+      if (!responseState) return false;
+    }
+    revalidatePath("/products");
+    revalidatePath("/company");
+
     return true;
   } catch {
     return false;

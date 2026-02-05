@@ -54,13 +54,15 @@ const ProductsList = ({ products }: { products: productsInterface }) => {
           </TableHead>
           <TableHead className="text-white text-center">اسم المنتج</TableHead>
           <TableHead className="text-white text-center">اسم الشركة</TableHead>
+          <TableHead className="text-white text-center">#</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {products.records.map((record) => (
+        {products.records.map((record, idx) => (
           <ProductListItem
             key={record.id}
             record={record}
+            idx={idx + 1}
             editingRecordID={editingRecordID}
             handleDeleteRecord={handleDeleteRecord}
             // handleUpdateRecordName={handleUpdateRecordName}
